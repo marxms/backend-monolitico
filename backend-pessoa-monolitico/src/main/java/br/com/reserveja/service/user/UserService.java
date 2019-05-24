@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.reserveja.dao.UserRepository;
 import br.com.reserveja.exception.CustomException;
-import br.com.reserveja.model.user.User;
+import br.com.reserveja.model.domain.user.User;
 import br.com.reserveja.security.JwtTokenProvider;
 
 @Service
@@ -30,16 +30,14 @@ public class UserService {
   @Autowired
   private AuthenticationManager authenticationManager;
 
-  public User signin(String username, String password) {
-    try {
-    	User retorno = search(username);
-    	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    	retorno.setToken(jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles()));
-      return retorno;
-    } catch (AuthenticationException e) {
-      throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
-    }
-  }
+  public String signin(String username, String password) {
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
+		} catch (AuthenticationException e) {
+			throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+	}
 
   public String signup(User user) {
     if (!userRepository.existsByUsername(user.getUsername())) {

@@ -1,8 +1,11 @@
-package br.com.reserveja.representation;
+package br.com.reserveja.model.representation.user;
 
 import java.util.List;
 
-import br.com.reserveja.model.user.Role;
+import javax.transaction.Transactional;
+
+import br.com.reserveja.model.domain.user.Role;
+import br.com.reserveja.model.representation.pessoa.PessoaRepresentation;
 import io.swagger.annotations.ApiModelProperty;
 
 public class UserResponseDTO {
@@ -15,18 +18,8 @@ public class UserResponseDTO {
 	private String email;
 	@ApiModelProperty(position = 3)
 	List<Role> roles;
-	@ApiModelProperty(position = 4)
-	private String token;
 	@ApiModelProperty(position = 5)
 	private PessoaRepresentation pessoa;
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
 
 	public Integer getId() {
 		return id;
@@ -44,6 +37,14 @@ public class UserResponseDTO {
 		this.username = username;
 	}
 
+	public PessoaRepresentation getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaRepresentation pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -58,14 +59,6 @@ public class UserResponseDTO {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
-
-	public PessoaRepresentation getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(PessoaRepresentation pessoa) {
-		this.pessoa = pessoa;
 	}
 
 }

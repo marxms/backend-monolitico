@@ -1,4 +1,4 @@
-package br.com.reserveja.model.user;
+package br.com.reserveja.model.domain.user;
 
 import org.springframework.security.core.GrantedAuthority;
 

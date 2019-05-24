@@ -1,9 +1,9 @@
-package br.com.reserveja.representation;
+package br.com.reserveja.model.representation.telefone;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import br.com.reserveja.model.pessoa.Pessoa;
+import br.com.reserveja.model.domain.pessoa.Pessoa;
 
 public class TelefoneRepresentation{
 	
@@ -16,8 +16,8 @@ public class TelefoneRepresentation{
 	@JsonProperty("numero")
 	private Integer numero;
 	
-	@JsonProperty("tpTelefone")
-	private String tpTelefone;
+	@JsonProperty("tp_telefone")
+	private String tp_telefone;
 	
 	@JsonProperty(access=Access.WRITE_ONLY, value="pessoa")
 	private Pessoa pessoa;
@@ -43,14 +43,14 @@ public class TelefoneRepresentation{
 		this.numero = numero;
 	}
 
-	public String getTpTelefone() {
-		return tpTelefone;
+	public String getTp_telefone() {
+		return tp_telefone;
 	}
 
-	public void setTpTelefone(String tpTelefone) {
-		this.tpTelefone = tpTelefone;
+	public void setTp_telefone(String tp_telefone) {
+		this.tp_telefone = tp_telefone;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}

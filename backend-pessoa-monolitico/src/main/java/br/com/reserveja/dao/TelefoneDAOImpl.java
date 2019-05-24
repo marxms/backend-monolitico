@@ -1,26 +1,31 @@
 package br.com.reserveja.dao;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.reserveja.model.pessoa.Pessoa;
-import br.com.reserveja.model.telefone.Telefone;
+import br.com.reserveja.model.domain.pessoa.Pessoa;
+import br.com.reserveja.model.domain.telefone.Telefone;
 
+@PersistenceUnit
+@Transactional
 @Repository
 public class TelefoneDAOImpl extends GenericDao<Telefone, Serializable> {
 	
 	public List<Telefone> listarTelefonePessoa(Pessoa pessoa) {
 		List<Telefone> listaTelefones = new ArrayList<>();
-	//	entityManager = entityManagerFactory.createEntityManager();
+		entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction t = entityManager.getTransaction();
 		t.begin();
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -34,3 +39,4 @@ public class TelefoneDAOImpl extends GenericDao<Telefone, Serializable> {
 		return listaTelefones;
 	}
 }
+

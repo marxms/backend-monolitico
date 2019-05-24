@@ -1,6 +1,7 @@
-package br.com.reserveja.model.telefone;
+package br.com.reserveja.model.domain.telefone;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,17 +9,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
-import br.com.reserveja.model.pessoa.Pessoa;
+import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
+
+import br.com.reserveja.model.domain.pessoa.Pessoa;
 
 @Entity
-public class Telefone {
+@Table
+@TypeDef(
+	    name = "pgsql_enum",
+	    typeClass = PostgreSQLEnumType.class
+	)
+public class Telefone implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4780100453337281778L;
+
 	@Id
-	@GenericGenerator(name="telefoneIncrement" , strategy="increment")
-	@GeneratedValue(generator="telefoneIncrement")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	private Integer DDD;
@@ -26,9 +40,10 @@ public class Telefone {
 	private Integer numero;
 	
 	@Enumerated(EnumType.STRING)
-	private EnumTipoTelefone tpTelefone;
+    @Type( type = "pgsql_enum" )
+	private EnumTipoTelefone tp_telefone;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	private Pessoa pessoa;
 	
 	public Integer getDDD() {
@@ -44,11 +59,13 @@ public class Telefone {
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
-	public EnumTipoTelefone getTpTelefone() {
-		return tpTelefone;
+
+	public EnumTipoTelefone getTp_telefone() {
+		return tp_telefone;
 	}
-	public void setTpTelefone(EnumTipoTelefone tpTelefone) {
-		this.tpTelefone = tpTelefone;
+
+	public void setTp_telefone(EnumTipoTelefone tp_telefone) {
+		this.tp_telefone = tp_telefone;
 	}
 
 	public Long getId() {

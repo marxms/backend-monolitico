@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.reserveja.dao.UserRepository;
-import br.com.reserveja.model.user.User;
+import br.com.reserveja.model.domain.user.User;
 
 @Service
 public class MyUserDetails implements UserDetailsService {

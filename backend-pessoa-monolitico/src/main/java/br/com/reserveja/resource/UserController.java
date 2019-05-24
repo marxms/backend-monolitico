@@ -1,7 +1,5 @@
 package br.com.reserveja.resource;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.reserveja.model.pessoa.Pessoa;
-import br.com.reserveja.model.user.Role;
-import br.com.reserveja.model.user.User;
-import br.com.reserveja.representation.UserDataDTO;
-import br.com.reserveja.representation.UserResponseDTO;
+import br.com.reserveja.model.domain.pessoa.Pessoa;
+import br.com.reserveja.model.domain.user.User;
+import br.com.reserveja.model.representation.user.UserDataDTO;
+import br.com.reserveja.model.representation.user.UserResponseDTO;
 import br.com.reserveja.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(allowCredentials="true")
 @RestController
 @RequestMapping("/users")
-@Api(tags = "users")
+@Api(value = "Users", tags = "users")
 public class UserController {
 
   @Autowired
@@ -48,10 +45,10 @@ public class UserController {
   @ApiResponses(value = {//
       @ApiResponse(code = 400, message = "Something went wrong"), //
       @ApiResponse(code = 422, message = "Invalid username/password supplied")})
-  public UserResponseDTO login(@RequestBody Map<String, Object> payload) {
+  public synchronized String login(@RequestBody Map<String, Object> payload) {
 	  String username = (String)payload.get("username");
 	  String password = (String)payload.get("password");
-    return modelMapper.map(userService.signin(username, password), UserResponseDTO.class);
+    return userService.signin(username, password);
   }
 
   @PostMapping("/register")
@@ -62,9 +59,6 @@ public class UserController {
       @ApiResponse(code = 422, message = "Username is already in use"), //
       @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
   public String signup(@ApiParam("Signup User") @RequestBody UserDataDTO user) {
-	  List<Role> regraCliente = new ArrayList<Role>();
-	  regraCliente.add(Role.ROLE_CLIENT);
-	  user.setRoles(regraCliente);
     return userService.signup(modelMapper.map(user, User.class));
   }
 
@@ -103,7 +97,6 @@ public class UserController {
   public UserResponseDTO whoami(HttpServletRequest req) {
     return modelMapper.map(userService.whoami(req), UserResponseDTO.class);
   }
-  
   
   @PatchMapping(value = "/updateUser/{username}", produces="application/json")
   @ApiOperation(value = "${UserController.updateUser}")

@@ -8,20 +8,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.reserveja.model.endereco.Endereco;
-import br.com.reserveja.model.pessoa.Pessoa;
-import br.com.reserveja.model.telefone.Telefone;
-import br.com.reserveja.model.user.User;
-
 @EnableAutoConfiguration
-@EntityScan(basePackageClasses= {Pessoa.class, User.class, Endereco.class, Telefone.class})
-@EnableJpaRepositories(basePackages={"br.com.reserveja.dao"}, entityManagerFactoryRef="sessionFactory")
+@EnableJpaRepositories(basePackages={"br.com.reserveja.dao"}, transactionManagerRef ="transactionManager",entityManagerFactoryRef="sessionFactory")
 @SpringBootApplication
 public class BackendPessoaMonoliticoApplication {
 

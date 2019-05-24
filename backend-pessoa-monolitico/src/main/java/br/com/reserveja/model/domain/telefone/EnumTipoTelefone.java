@@ -1,4 +1,4 @@
-package br.com.reserveja.model.telefone;
+package br.com.reserveja.model.domain.telefone;
 
 public enum EnumTipoTelefone {
 

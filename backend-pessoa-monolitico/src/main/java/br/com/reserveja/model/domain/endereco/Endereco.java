@@ -1,29 +1,53 @@
-package br.com.reserveja.representation;
+package br.com.reserveja.model.domain.endereco;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import java.util.List;
 
-public class EnderecoRepresentation{
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
-	@JsonProperty("id")
+import br.com.reserveja.model.domain.pessoa.Pessoa;
+
+@Entity
+public class Endereco implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6468282937915501280L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@JsonProperty("logradouro")
 	private String logradouro;
 	
-	@JsonProperty("cidade")
 	private String cidade;
 	
-	@JsonProperty("estado")
 	private String estado;
 	
-	@JsonProperty("cep")
 	private String cep;
 	
-	@JsonProperty("numero")
 	private Integer numero;
 	
-	@JsonProperty("complemento")
 	private String complemento;
+	
+	@Transient
+	@OneToMany(targetEntity = Pessoa.class, cascade=CascadeType.DETACH, mappedBy="endereco")
+	private List<Pessoa> pessoas;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getLogradouro() {
 		return logradouro;
@@ -73,12 +97,12 @@ public class EnderecoRepresentation{
 		this.complemento = complemento;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
 
-	public Long getId() {
-		return id;
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 	
 }

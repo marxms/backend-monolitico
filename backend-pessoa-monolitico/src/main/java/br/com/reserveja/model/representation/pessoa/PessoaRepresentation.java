@@ -1,10 +1,14 @@
-package br.com.reserveja.representation;
+package br.com.reserveja.model.representation.pessoa;
 
 import java.sql.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import br.com.reserveja.model.representation.endereco.EnderecoRepresentation;
+import br.com.reserveja.model.representation.telefone.TelefoneRepresentation;
+import br.com.reserveja.model.representation.user.UserResponseDTO;
 
 
 public class PessoaRepresentation{
@@ -34,7 +38,7 @@ public class PessoaRepresentation{
 	@JsonProperty(required = false, value="sexo")
 	private String sexo;
 	
-	@JsonProperty(access=Access.WRITE_ONLY, value="user")
+	@JsonProperty(value="user")
 	private UserResponseDTO user;
 
 

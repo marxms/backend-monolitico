@@ -1,28 +1,31 @@
-package br.com.reserveja.representation;
+package br.com.reserveja.model.representation.user;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import br.com.reserveja.model.user.Role;
+import br.com.reserveja.model.domain.user.Role;
+import br.com.reserveja.model.representation.pessoa.PessoaRepresentation;
 import io.swagger.annotations.ApiModelProperty;
 
 public class UserDataDTO {
 
-	@ApiModelProperty(position = 2)
-	@JsonProperty("username")
+	@ApiModelProperty(position = 0)
 	private String username;
-	@ApiModelProperty(position = 3)
-	@JsonProperty("password")
+	@ApiModelProperty(position = 1)
 	private String password;
-	@JsonProperty("email")
-	@ApiModelProperty(position = 4)
+	@ApiModelProperty(position = 2)
 	private String email;
-	@JsonProperty(value= "pessoa")
-	@ApiModelProperty(position = 5)
+	@ApiModelProperty(position = 3)
+	List<Role> roles;
+	@ApiModelProperty(position = 4)
 	private PessoaRepresentation pessoa;
-	
-	private List<Role> roles;
+
+	public PessoaRepresentation getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(PessoaRepresentation pessoa) {
+		this.pessoa = pessoa;
+	}
 
 	public String getUsername() {
 		return username;
@@ -54,14 +57,6 @@ public class UserDataDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public PessoaRepresentation getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(PessoaRepresentation pessoa) {
-		this.pessoa = pessoa;
 	}
 
 }

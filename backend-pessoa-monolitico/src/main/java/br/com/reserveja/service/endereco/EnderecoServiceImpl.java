@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.reserveja.dao.EnderecoDAOImpl;
 import br.com.reserveja.dao.GenericDao;
-import br.com.reserveja.model.endereco.Endereco;
+import br.com.reserveja.model.domain.endereco.Endereco;
 import br.com.reserveja.service.AbstractService;
 
 @Service

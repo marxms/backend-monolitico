@@ -1,4 +1,4 @@
-package br.com.reserveja.model.pessoa;
+package br.com.reserveja.model.domain.pessoa;
 
 public enum EnumSexo {
 	MASCULINO("M"), FEMININO("F");

@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import br.com.reserveja.exception.CustomException;
-import br.com.reserveja.model.user.Role;
+import br.com.reserveja.model.domain.user.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

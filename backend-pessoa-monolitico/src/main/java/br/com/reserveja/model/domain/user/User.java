@@ -1,9 +1,8 @@
-package br.com.reserveja.model.user;
+package br.com.reserveja.model.domain.user;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -12,60 +11,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import br.com.reserveja.model.pessoa.Pessoa;
+import br.com.reserveja.model.domain.pessoa.Pessoa;
 
 @Entity
+@Table(name="tb_user")
 public class User implements Serializable{
-
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6889188451159419338L;
+	private static final long serialVersionUID = -8065611406436041007L;
 
 	@Id
 	@GenericGenerator(name="userIncrement" , strategy="increment")
-	@GeneratedValue(generator="userIncrement")
+	@GeneratedValue(generator="userIncrement")	
 	private Integer id;
 
 	@Size(min = 4, max = 255, message = "Minimum username length: 4 characters")
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String username;
 
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String email;
 
 	@Size(min = 8, message = "Minimum password length: 8 characters")
 	private String password;
-	
-	@OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.DETACH, optional=true)
-	@JoinColumn(name="pessoa_id")
-	private Pessoa pessoa;
-
-	public Pessoa getPessoa() {
-		return this.pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		 this.pessoa = pessoa;
-		 }
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	List<Role> roles;
 	
-	String token;
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
+	@Transient
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="pessoa_id", nullable=true)
+	private Pessoa pessoa;
 
 	public Integer getId() {
 		return id;
@@ -105,6 +89,14 @@ public class User implements Serializable{
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.reserveja.dao.GenericDao;
 import br.com.reserveja.dao.TelefoneDAOImpl;
-import br.com.reserveja.model.telefone.Telefone;
+import br.com.reserveja.model.domain.telefone.Telefone;
 import br.com.reserveja.service.AbstractService;
 
 @Service

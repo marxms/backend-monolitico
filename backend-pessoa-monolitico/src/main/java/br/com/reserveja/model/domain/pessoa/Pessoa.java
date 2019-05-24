@@ -1,4 +1,4 @@
-package br.com.reserveja.model.pessoa;
+package br.com.reserveja.model.domain.pessoa;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -19,15 +19,12 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import br.com.reserveja.model.endereco.Endereco;
-import br.com.reserveja.model.telefone.Telefone;
-import br.com.reserveja.model.user.User;
-
+import br.com.reserveja.model.domain.endereco.Endereco;
+import br.com.reserveja.model.domain.telefone.Telefone;
+import br.com.reserveja.model.domain.user.User;
 
 @Entity
 public class Pessoa implements Serializable{
-
-//	private FieldHandler fieldHandler;
 	
 	/**
 	 * 
@@ -45,11 +42,12 @@ public class Pessoa implements Serializable{
 	
 	private Date dtnascimento;
 	
-	@ManyToOne(cascade=CascadeType.DETACH, optional= true)
+	@Transient
+	@ManyToOne(cascade=CascadeType.DETACH, fetch=FetchType.LAZY, optional= true)
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
 	
-	@OneToMany(targetEntity = Telefone.class, cascade=CascadeType.ALL, mappedBy="pessoa")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="pessoa")
 	private List<Telefone> telefone;
 	
 	private String email;
@@ -134,17 +132,4 @@ public class Pessoa implements Serializable{
 		this.user = user;
 	}
 	
-
-/*	@Override
-	public void setFieldHandler(FieldHandler handler) {
-		this.fieldHandler = handler;
-		
-	}
-
-	@Override
-	public FieldHandler getFieldHandler() {
-		// TODO Auto-generated method stub
-		return this.fieldHandler;
-	}
-*/
 }
